@@ -1,5 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
+import ShowcaseComponent from "./components/ShowcaseComponent";
 
 const mqtt = require( 'mqtt/dist/mqtt');
 
@@ -21,6 +21,8 @@ function App() {
 
     const mqttClient = mqtt.connect(host, mqttOptions)
 
+    let beacon;
+
     mqttClient.on('connect', () => {
         console.log('Mqtt connected.')
         mqttClient.subscribe(topic, () => {
@@ -38,6 +40,7 @@ function App() {
         switch (msg.beaconType) {
             case 'iBeacon':
                 checkBeacon(msg)
+                beacon = msg;
                 break
             default:
                 break
@@ -48,8 +51,6 @@ function App() {
     mqttClient.on('close', () => {
         console.log('MQTT disconnected')
     })
-
-
 
     const checkBeacon = (beacon) => {
         if (beacon.rssi > -60) {
@@ -66,10 +67,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p id='beacon' >
-                Closest beacon: None
-            </p>
+            <ShowcaseComponent beacon={{rssi: -45,iBeacon: {uuid: "010d2108-0462-4f97-bab8-000000000003"}}}/>
             </header>
         </div>
     );
