@@ -17,6 +17,7 @@ function App() {
     const [beacon, setBeacon] = useState({})
     const [beaconTime, setBeaconTime] = useState(new Date())
     const [tick, setTick] = useState(1)
+    const [orientation, setOrientation] = useState("vertical")
     const theme = createTheme();
 
     useEffect(() => {
@@ -136,11 +137,30 @@ function App() {
     }, [beacon])
 
 
-    return (
+    return style === "DEFAULT" ? (
+        <div>
+            <video loop autoPlay style={{
+                objectFit: "cover",
+                height: orientation === "vertical" ? 2560 : 1440,
+                width: orientation === "vertical" ? 1440 : 2560,
+                top: 0,
+                position: "fixed",
+                zIndex: -1
+            }}>
+                <source
+                    src={orientation === "vertical" ? require("./resources/videos/shopping_background_video_vertical.mp4") :  require("./resources/videos/shopping_background_video_horizontal.mp4")}
+                    type="video/mp4"
+                />
+            </video>
+            <Grid container style={{background: 'rgba(109,112,115,0.7)', height: "100vh"}}>
+                <Typography variant={"h2"} color={"whitesmoke"} marginY={"auto"} mx={"auto"}>Experience curated shopping</Typography>
+            </Grid>
+        </div>
+    ) : (
         <div className="App">
             <header className="App-header">
                 <ThemeProvider theme={theme}>
-                    <Grid container component="main" sx={{height: '100vh'}}>
+                    <Grid container component="main" sx={{height: '100vh'}} direction={orientation === "vertical" ? "column" : "row"}>
                         <CssBaseline/>
                         <Grid
                             item
@@ -150,6 +170,7 @@ function App() {
                                 backgroundRepeat: 'no-repeat',
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
+                                height: "100%"
                             }}
                         >
                         </Grid>
@@ -159,7 +180,7 @@ function App() {
                                        justifyContent: "center",
                                        display: "flex",
                                        flexDirection: "column",
-                                       height: "100vh"
+                                       height: "100%"
                                    }}>
                                 <Typography variant={"h5"} marginBottom={5}>Your style has been identified
                                     as <b>{style}</b></Typography>
@@ -172,7 +193,7 @@ function App() {
                                         <Typography marginTop={1} variant={"body1"}>{product.price}</Typography>
                                         <Typography marginTop={1} variant={"body1"}>{product.rating} ★</Typography>
                                     </Grid>
-                                    <Grid item xs={7} mb={10}>
+                                    <Grid item xs={7} mb={2}>
                                         <img src={productImages.profile} alt={"Lamp profile"} width={"100%"}/>
                                     </Grid>
                                 </Grid>
