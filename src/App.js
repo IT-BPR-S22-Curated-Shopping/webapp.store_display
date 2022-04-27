@@ -1,11 +1,11 @@
 import './App.css';
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import ShowcaseComponent from "./ShowcaseComponent";
 //const mqtt = require('mqtt/dist/mqtt');
 
 function App() {
-    const [beacon, setBeacon] = useState({})
+    const [beacon] = useState({})
     // const [beaconTime, setBeaconTime] = useState(new Date())
     // const [tick, setTick] = useState(1)
     //
