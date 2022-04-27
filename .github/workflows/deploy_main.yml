@@ -1,0 +1,43 @@
+name: Build and deploy Node.js app to Azure Web App - curate
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: 'curate'
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  SLOT_NAME: 'production'
+  NODE_VERSION: '16.x'
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ env.SLOT_NAME }}
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version:  ${{ env.NODE_VERSION }}
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: ${{ env.SLOT_NAME }}
+          publish-profile: ${{ secrets.Azure_Publish_Profile }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
