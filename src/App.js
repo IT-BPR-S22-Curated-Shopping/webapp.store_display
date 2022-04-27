@@ -15,7 +15,7 @@ function App() {
         if (secondsBetween > 5) {
             setBeacon(null)
         }
-    },[tick])
+    },[beaconTime, tick]) // Beacon time add for CI - JN
 
     useEffect(() => {
         setInterval(() => {

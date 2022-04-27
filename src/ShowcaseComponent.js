@@ -13,7 +13,7 @@ function ShowcaseComponent(props) {
     const [product, setProduct] = useState({name: "", caption: "", price: "", rating: ""});
     const [orientation, setOrientation] = useState("vertical")
     const [beacon, setBeacon] = useState({})
-    const theme = createTheme();
+   // const theme = createTheme();
 
     useEffect(() => {
         setBeacon(props.beacon)
