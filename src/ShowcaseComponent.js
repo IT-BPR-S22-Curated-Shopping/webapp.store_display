@@ -52,7 +52,7 @@ function ShowcaseComponent(props) {
                 })
                 setProduct({
                     name: "NYFORS",
-                    caption: "Table lamp, nickel-plated white",
+                    caption: "Table lamp, \n nickel-plated white",
                     price: "€ 49.99",
                     rating: "4.8/5"
                 })
@@ -116,7 +116,7 @@ function ShowcaseComponent(props) {
                         height: "100%"
                     }}
                 >
-                    <SimpleImageSlider width={"60%"} height={"100%"} images={productImages?.backdrops} showNavs={false} showBullets={false} autoPlay={true} slideDuration={2}/>
+                    <SimpleImageSlider width={"58.33336%"} height={"100%"} images={productImages?.backdrops} showNavs={false} showBullets={false} autoPlay={true} slideDuration={2}/>
                 </Grid>
                 <Grid item xs={5}>
                     <Paper elevation={20}
@@ -141,7 +141,6 @@ function ShowcaseComponent(props) {
                                 <img src={productImages.profile} alt={"Lamp profile"} width={"100%"}/>
                             </Grid>
                         </Grid>
-                        <Typography variant={"caption"}>Closest beacon: {beacon?.uuid}</Typography>
                     </Paper>
                 </Grid>
             </Grid>
