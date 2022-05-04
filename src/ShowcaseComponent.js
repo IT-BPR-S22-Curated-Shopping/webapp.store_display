@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {createTheme} from "@mui/material/styles";
+//import {createTheme} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import {Paper, Typography} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +13,7 @@ function ShowcaseComponent(props) {
     const [product, setProduct] = useState({name: "", caption: "", price: "", rating: ""});
     const [orientation, setOrientation] = useState("vertical")
     const [beacon, setBeacon] = useState({})
-    const theme = createTheme();
+   // const theme = createTheme();
 
     useEffect(() => {
         setBeacon(props.beacon)
