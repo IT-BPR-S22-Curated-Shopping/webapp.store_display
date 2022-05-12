@@ -21,7 +21,7 @@ function App() {
     // }, [])
 
     useEffect(() => {
-        let webSocket = new WebSocket('ws://localhost:9000/presentation');
+        let webSocket = new WebSocket('ws://curatedbackend.herokuapp.com/presentation');
         webSocket.onmessage = function (payload) {
             console.log(payload.data)
         }
