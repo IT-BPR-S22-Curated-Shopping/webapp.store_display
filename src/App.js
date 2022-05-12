@@ -30,6 +30,10 @@ function App() {
             webSocket.send("Callback from presentation device");
         });
 
+        setInterval(() => {
+            webSocket.send("Heartbeat")
+        }, 40000);
+
     }, []);
 
     return (
