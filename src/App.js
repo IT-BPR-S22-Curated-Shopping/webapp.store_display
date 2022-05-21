@@ -38,7 +38,7 @@ function App() {
 
     return (
         <div className="App">
-            {/*<ShowcaseComponent beacon={beacon} orientation={"horizontal"}/>*/}
+            {/*<PresentationPage beacon={beacon} orientation={"horizontal"}/>*/}
         </div>
     );
 }
