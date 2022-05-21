@@ -1,8 +1,12 @@
 import './App.css';
 import * as React from "react";
 import {useEffect} from "react";
+import WebSocketHandler from "./services/websocket/WebSocketHandler";
 
 function App() {
+
+    const websocketHandler = WebSocketHandler();
+
     // const [tick, setTick] = useState(1)
 
     // useEffect(() => {
@@ -21,24 +25,12 @@ function App() {
     // }, [])
 
     useEffect(() => {
-        let webSocket = new WebSocket('wss://curatedbackend.herokuapp.com/presentation');
-        webSocket.onmessage = function (payload) {
-            console.log(payload.data)
-        }
-
-        webSocket.addEventListener('open', function (event) {
-            webSocket.send("Callback from presentation device");
-        });
-
-        setInterval(() => {
-            webSocket.send("Heartbeat")
-        }, 40000);
-
+        websocketHandler.connect();
     }, []);
 
     return (
         <div className="App">
-            {/*<ShowcaseComponent beacon={beacon} orientation={"horizontal"}/>*/}
+            {/*<PresentationPage beacon={beacon} orientation={"horizontal"}/>*/}
         </div>
     );
 }

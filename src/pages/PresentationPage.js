@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import SimpleImageSlider from "react-simple-image-slider";
 import * as React from "react";
 
-function ShowcaseComponent(props) {
+function PresentationPage(props) {
 
     const [style, setStyle] = useState("");
     const [productImages, setProductImages] = useState({profile: null, backdrops: []});
@@ -26,10 +26,10 @@ function ShowcaseComponent(props) {
             case "010D2108-0462-4F97-BAB8-000000000001":
                 setStyle("Modern")
                 setProductImages({
-                    profile: require('./resources/images/modern/profil.png'),
+                    profile: require('../resources/images/modern/profil.png'),
                     backdrops: [
-                        require('./resources/images/modern/stemning_1.png'),
-                        require('./resources/images/modern/stemning_2.png')
+                        require('../resources/images/modern/stemning_1.png'),
+                        require('../resources/images/modern/stemning_2.png')
                     ]
                 })
                 setProduct({
@@ -43,11 +43,11 @@ function ShowcaseComponent(props) {
             case "010D2108-0462-4F97-BAB8-000000000002":
                 setStyle("Classic")
                 setProductImages({
-                    profile: require('./resources/images/classic/profil.png'),
+                    profile: require('../resources/images/classic/profil.png'),
                     backdrops: [
-                        require('./resources/images/classic/stemning_1.png'),
-                        require('./resources/images/classic/stemning_2.png'),
-                        require('./resources/images/classic/stemning_3.png')
+                        require('../resources/images/classic/stemning_1.png'),
+                        require('../resources/images/classic/stemning_2.png'),
+                        require('../resources/images/classic/stemning_3.png')
                     ]
                 })
                 setProduct({
@@ -61,13 +61,13 @@ function ShowcaseComponent(props) {
             case "010D2108-0462-4F97-BAB8-000000000003":
                 setStyle("Retro")
                 setProductImages({
-                    profile: require('./resources/images/retro/profil.png'),
+                    profile: require('../resources/images/retro/profil.png'),
                     backdrops: [
-                        require('./resources/images/retro/stemning_1.png'),
-                        require('./resources/images/retro/stemning_2.png'),
-                        require('./resources/images/retro/stemning_3.png'),
-                        require('./resources/images/retro/stemning_4.png'),
-                        require('./resources/images/retro/stemning_5.png')
+                        require('../resources/images/retro/stemning_1.png'),
+                        require('../resources/images/retro/stemning_2.png'),
+                        require('../resources/images/retro/stemning_3.png'),
+                        require('../resources/images/retro/stemning_4.png'),
+                        require('../resources/images/retro/stemning_5.png')
                     ]
                 })
                 setProduct({
@@ -96,7 +96,7 @@ function ShowcaseComponent(props) {
                 zIndex: -1
             }}>
                 <source
-                    src={orientation === "vertical" ? require("./resources/videos/shopping_background_video_vertical.mp4") : require("./resources/videos/shopping_background_video_horizontal.mp4")}
+                    src={orientation === "vertical" ? require("../resources/videos/shopping_background_video_vertical.mp4") : require("../resources/videos/shopping_background_video_horizontal.mp4")}
                     type="video/mp4"
                 />
             </video>
@@ -147,4 +147,4 @@ function ShowcaseComponent(props) {
         </div>
     )}
 
-export default ShowcaseComponent;
+export default PresentationPage;
