@@ -1,3 +1,5 @@
+import RecommendationParser from "../../util/RecommendationParser";
+
 function WebSocketHandler() {
 
     let webSocket;
@@ -12,15 +14,18 @@ function WebSocketHandler() {
     }
 
     const announceLocation = (id, callback) => {
+        let recommendationParser = new RecommendationParser();
+
         if (id !== 0) {
             webSocket.addEventListener('open', function (event) {
+                webSocket.send("Location ID " + id);
                 setInterval(() => {
                     webSocket.send("Location ID " + id);
                 }, 40000);
             })
 
             webSocket.onmessage = function (payload) {
-                callback(payload.data)
+                callback(recommendationParser.parseRecommendation(payload.data));
             }
         }
     }

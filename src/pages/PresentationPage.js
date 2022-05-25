@@ -12,6 +12,7 @@ function PresentationPage(props) {
     const [idle, setIdle] = useState(true);
     const [product, setProduct] = useState({})
     const [recommendedProducts, setRecommendedProducts] = useState([])
+    const [commonTags, setCommonTags] = useState([])
 
     useEffect(() => {
         if (params.locationId !== undefined) {
@@ -20,43 +21,11 @@ function PresentationPage(props) {
         }
     }, [])
 
-    useEffect(() => {
-        setProduct({
-            "id" : 458,
-            "number" : "60440341",
-            "name" : "Upplyst",
-            "price" : 149.00,
-            "description" : "Børn elsker det muntre design og det hyggelige lys, lampen giver, når den er tændt. Vores belysning til børn gennemgår nogle af verdens strengeste sikkerhedstest, så du kan være sikker på, at dit barn ikke kommer til skade",
-            "caption:" : "LED-væglampe, sommerfugl lyseblå",
-            "image" : "https://www.ikea.com/dk/da/images/products/upplyst-led-vaeglampe-sommerfugl-lysebla__0716795_pe731046_s5.jpg"
-        })
-
-        setRecommendedProducts([
-            {
-                "id" : 458,
-                "number" : "60440341",
-                "name" : "Upplyst",
-                "price" : 149.00,
-                "description" : "Børn elsker det muntre design og det hyggelige lys, lampen giver, når den er tændt. Vores belysning til børn gennemgår nogle af verdens strengeste sikkerhedstest, så du kan være sikker på, at dit barn ikke kommer til skade",
-                "caption:" : "LED-væglampe, sommerfugl lyseblå",
-                "image" : "https://www.ikea.com/dk/da/images/products/upplyst-led-vaeglampe-sommerfugl-lysebla__0716795_pe731046_s5.jpg"
-            },
-            {
-                "id" : 458,
-                "number" : "60440341",
-                "name" : "Upplyst",
-                "price" : 149.00,
-                "description" : "Børn elsker det muntre design og det hyggelige lys, lampen giver, når den er tændt. Vores belysning til børn gennemgår nogle af verdens strengeste sikkerhedstest, så du kan være sikker på, at dit barn ikke kommer til skade",
-                "caption:" : "LED-væglampe, sommerfugl lyseblå",
-                "image" : "https://www.ikea.com/dk/da/images/products/upplyst-led-vaeglampe-sommerfugl-lysebla__0716795_pe731046_s5.jpg"
-            }
-        ])
-
-        setIdle(false);
-    }, [])
-
     const onMessageCallback = (data) => {
-        // setIdle(false);
+        setProduct(data.product)
+        setRecommendedProducts(data.recommendedProducts)
+        setCommonTags(data.commonTags)
+        setIdle(false)
     }
 
     return idle ? (
@@ -71,7 +40,7 @@ function PresentationPage(props) {
                 zIndex: -1
             }}>
                 <source
-                    src={orientation === "vertical" ? require("../resources/videos/shopping_background_video_vertical.mp4") : require("../resources/videos/shopping_background_video_horizontal.mp4")}
+                    src={require("../resources/videos/shopping_background_video_horizontal.mp4")}
                     type="video/mp4"
                 />
             </video>
@@ -80,7 +49,7 @@ function PresentationPage(props) {
             </Grid>
         </div>
     ) : (
-        <ProductPresentationComponent orientation={orientation} product={product} recommendedProducts={recommendedProducts} />
+        <ProductPresentationComponent orientation={orientation} product={product} recommendedProducts={recommendedProducts} commonTags={commonTags} />
     )}
 
 export default PresentationPage;
