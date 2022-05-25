@@ -1,22 +1,31 @@
 function WebSocketHandler() {
 
+    let webSocket;
+
     const connect = () => {
-        let webSocket = new WebSocket('ws://localhost:9000/presentation');
-        webSocket.onmessage = function (payload) {
-            console.log(payload.data)
-        }
+        webSocket = new WebSocket('ws://localhost:9000/presentation')
 
         webSocket.addEventListener('open', function (event) {
             console.log("Connection established")
-            webSocket.send("Callback from presentation device");
+            webSocket.send("Presentation device connected");
         });
-
-        setInterval(() => {
-            webSocket.send("Heartbeat")
-        }, 4000);
     }
 
-    return {connect}
+    const announceLocation = (id, callback) => {
+        if (id !== 0) {
+            webSocket.addEventListener('open', function (event) {
+                setInterval(() => {
+                    webSocket.send("Location ID " + id);
+                }, 40000);
+            })
+
+            webSocket.onmessage = function (payload) {
+                callback(payload.data)
+            }
+        }
+    }
+
+    return {connect, announceLocation}
 }
 
 
