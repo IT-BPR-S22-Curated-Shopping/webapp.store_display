@@ -10,7 +10,7 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/presentation" element={<PresentationPage webSocketHandler={websocketHandler}/>}/>
+            <Route path="/" element={<PresentationPage webSocketHandler={websocketHandler}/>}/>
             <Route path="/presentation/:locationId" element={<PresentationPage webSocketHandler={websocketHandler} />}/>
         </Routes>
     );

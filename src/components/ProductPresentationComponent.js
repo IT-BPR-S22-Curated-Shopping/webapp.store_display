@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
-import {Card, CardContent, CardMedia, Chip, CircularProgress, CssBaseline, Paper, Typography} from "@mui/material";
+import {Card, CardContent, CardMedia, Chip, CircularProgress, Paper, Typography} from "@mui/material";
 
 function ProductPresentationComponent(props) {
     const [product, setProduct] = useState({})
