@@ -5,29 +5,6 @@ import {useParams} from "react-router-dom";
 import ProductPresentationComponent from "../components/ProductPresentationComponent";
 import Grid from "@mui/material/Grid";
 
-
-const product1 = {
-    name: 'Addidas',
-    number: '498237h',
-    caption: 'Some caption',
-    description: 'Really nice shoe',
-    price: 499,
-    commonTags: [ {tag: 'stylish'}, {tag:'addidas'}, {tag:'rightprice'}],
-    image: 'https://cdn.allbirds.com/image/upload/f_auto,q_auto,w_533,b_rgb:f5f5f5/cms/z0Z7JaTiFmKncrgGOxJp7/24a0b02e2071298fe8da4628fcb7c375/Men_s_Wool_Runners_-_Natural_Grey__Light_Grey_Sole__-_imageAngle'
-}
-
-const product2 = {
-    name: 'Addidas',
-    number: '498237h',
-    caption: 'Some caption',
-    description: 'Best shoe ever',
-    price: 599,
-    commonTags: [ {tag: 'modern'}, {tag:'fancy'}],
-    image: 'https://cdn.allbirds.com/image/upload/f_auto,q_auto,w_533,b_rgb:f5f5f5/cms/z0Z7JaTiFmKncrgGOxJp7/24a0b02e2071298fe8da4628fcb7c375/Men_s_Wool_Runners_-_Natural_Grey__Light_Grey_Sole__-_imageAngle'
-}
-
-const products = [product1, product2, product1]
-
 function PresentationPage(props) {
     const params = useParams();
     const WSHandler = props.webSocketHandler;
