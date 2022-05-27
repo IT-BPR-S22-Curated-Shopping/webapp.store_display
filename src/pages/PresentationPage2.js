@@ -131,7 +131,7 @@ function PresentationPage2(props) {
 
             </Grid>
             <Grid item textAlign={'center'}>
-                <Grid container sx={{mt: '-5vh'}} justifyContent={'center'}>
+                <Grid container sx={{mt: '-10vh'}} justifyContent={'center'}>
 
                     <Box item xs={8} sx={{borderRadius: '10px'}} bgcolor={'white'} boxShadow={1} p={1}>
                         <Typography pt={1} variant={"h5"}>You may also like</Typography>
