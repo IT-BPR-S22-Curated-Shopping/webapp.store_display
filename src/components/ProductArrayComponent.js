@@ -6,7 +6,7 @@ function ProductArrayComponent (props) {
     let  key = 0;
 
     return (
-        <Grid item {...props.gridProps}>
+        <Grid container item>
             {
                 props.products.map(product => {
                     key++;

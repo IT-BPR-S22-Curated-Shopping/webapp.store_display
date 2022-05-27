@@ -1,7 +1,7 @@
 
 const fonts = ['default', 'helvetica', 'Monospace', 'roboto', 'Arial', 'sans-serif', '"Segoe UI"']
 
-const getFont = () => fonts[Math.floor(Math.random() * fonts.length)]
+export const getFont = () => fonts[Math.floor(Math.random() * fonts.length)]
 
 const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
@@ -14,7 +14,7 @@ const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-const getColor = () => colors[Math.floor(Math.random() * colors.length)]
+export const getColor = () => colors[Math.floor(Math.random() * colors.length)]
 
 const randomStyle = {
     text: {
@@ -22,9 +22,7 @@ const randomStyle = {
             sx: {
                 backgroundColor: getColor(),
                 padding: 4,
-                margin: 1,
-                marginLeft: 'auto',
-                marginRight: 'auto'
+                width: 1
             }
         },
         head: {
@@ -39,8 +37,7 @@ const randomStyle = {
                 fontFamily: getFont(),
                 letterSpacing: 5,
                 lineHeight: 'normal',
-                marginBottom: 1,
-                marginLeft: 1
+                marginBottom: 1
             }
         },
         sub: {
@@ -54,8 +51,7 @@ const randomStyle = {
                 fontSize: 15,
                 fontFamily: getFont(),
                 letterSpacing: 4,
-                lineHeight: 'normal',
-                marginLeft: 1, // Mandatory to create spaces in split
+                lineHeight: 'normal'
             }
         }
     }
