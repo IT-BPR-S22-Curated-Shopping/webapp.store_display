@@ -16,7 +16,11 @@ function RecommendationParser() {
         }
     }
 
-    return {parseRecommendation}
+    const parseData = (payload) => {
+        return JSON.parse(payload.data);
+    }
+
+    return {parseRecommendation, parseData}
 }
 
 

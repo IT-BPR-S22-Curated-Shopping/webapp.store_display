@@ -38,11 +38,16 @@ function PresentationPage(props) {
     const [commonTags, setCommonTags] = useState([])
 
     useEffect(() => {
-        if (params.locationId !== undefined) {
-            WSHandler.connect();
-            WSHandler.announceLocation(params.locationId, onMessageCallback);
+        let locationId = params.locationId;
+        if (locationId !== undefined) {
+            WSHandler.connect(locationId);
+            WSHandler.setCallbacks(onMessageCallback, onInitialProduct);
         }
     }, [])
+
+    const onInitialProduct = (data) => {
+        console.log("presentation page initial data");
+    }
 
     const onMessageCallback = (data) => {
         setProduct(data.product)

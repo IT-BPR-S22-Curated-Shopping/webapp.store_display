@@ -1,37 +1,60 @@
-import RecommendationParser from "../../util/RecommendationParser";
+import RecommendationParser from '../../util/RecommendationParser';
 
 function WebSocketHandler() {
+    let locationId = null;
+    let webSocket = null;
+    const reconnectTime = 5000;
+    let recommendationParser = new RecommendationParser();
+    let onRecommendationCallback = () => {};
+    let onInitialProductCallback = () => {};
 
-    let webSocket;
+    const connect = (id) => {
+        if (webSocket == null) {
+            console.log('Connecting to location ' + id + '...');
+            webSocket = new WebSocket('ws://localhost:9000/presentation');
+            locationId = id;
 
-    const connect = () => {
-        webSocket = new WebSocket('ws://localhost:9000/presentation')
-
-        webSocket.addEventListener('open', function (event) {
-            console.log("Connection established")
-            webSocket.send("Presentation device connected");
-        });
-    }
-
-    const announceLocation = (id, callback) => {
-        let recommendationParser = new RecommendationParser();
-
-        if (id !== 0) {
-            webSocket.addEventListener('open', function (event) {
-                webSocket.send("Location ID " + id);
-                setInterval(() => {
-                    webSocket.send("Location ID " + id);
-                }, 40000);
-            })
-
-            webSocket.onmessage = function (payload) {
-                callback(recommendationParser.parseRecommendation(payload.data));
-            }
+            webSocket.onopen = onOpen;
+            webSocket.onclose = onClose;
+            webSocket.onmessage = onMessage;
         }
+    };
+
+    const onMessage = (payload) => {
+        if (recommendationParser.parseData(payload).sessionId) {
+            console.log('initial product received.');
+            console.log(recommendationParser.parseData(payload));
+            onInitialProductCallback(recommendationParser.parseData(payload));
+        } else {
+            onRecommendationCallback(recommendationParser.parseRecommendation(payload.data));
+        }
+    };
+
+    const onOpen = () => {
+        console.log('Connection established. Querying for product to display.');
+        webSocket.send('Location ID: ' + locationId);
+        setInterval(() => {
+            webSocket.send('Location ID ' + locationId);
+        }, 40000);
+    };
+
+    const onClose = () => {
+        webSocket = null;
+        setTimeout(() => reconnect(), reconnectTime);
+        console.log('Connection closed.');
+    };
+
+    const reconnect = () => {
+        console.log('Trying to reconnect...');
+        connect(locationId);
+    };
+
+    const setCallbacks = (recommendationCallback, initialProductCallback) => {
+        onRecommendationCallback = recommendationCallback;
+        onInitialProductCallback = initialProductCallback;
     }
 
-    return {connect, announceLocation}
+    return {connect, setCallbacks};
 }
-
 
 export default WebSocketHandler;
