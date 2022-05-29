@@ -9,7 +9,6 @@ function PresentationPage2(props) {
     const params = useParams();
     const WSHandler = props.webSocketHandler;
 
-    const [initialProduct, setInitialProduct] = useState({});
     const [initialRecommendedProducts, setInitialRecommendedProducts] = useState([]);
 
     const [displayedProduct, setDisplayedProduct] = useState({});
@@ -26,6 +25,7 @@ function PresentationPage2(props) {
             WSHandler.connect(locationId);
             WSHandler.setCallbacks(onMessageCallback, onInitialProduct);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useIntervalC(() => {

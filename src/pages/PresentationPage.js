@@ -24,6 +24,7 @@ function PresentationPage(props) {
             WSHandler.connect(locationId);
             WSHandler.setCallbacks(onMessageCallback, onInitialProduct);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onInitialProduct = (data) => {

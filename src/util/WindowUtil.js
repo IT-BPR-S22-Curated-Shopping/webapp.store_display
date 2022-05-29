@@ -25,6 +25,7 @@ function WindowUtil () {
 
         // Remove event listener on cleanup
         return () => window.removeEventListener("resize", handleResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const size = () => windowSize

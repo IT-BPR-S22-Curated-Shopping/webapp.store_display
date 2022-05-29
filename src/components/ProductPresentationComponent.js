@@ -12,8 +12,6 @@ function getWindowDimensions() {
 }
 
 function ProductPresentationComponent(props) {
-    const [product, setProduct] = useState({})
-    const [recommendedProducts, setRecommendedProducts] = useState([])
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -25,6 +23,7 @@ function ProductPresentationComponent(props) {
             setRecommendedProducts(props.recommendedProducts);
         }
         setLoading(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -36,6 +35,7 @@ function ProductPresentationComponent(props) {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return isLoading ? (
