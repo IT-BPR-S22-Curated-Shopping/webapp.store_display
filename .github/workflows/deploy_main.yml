@@ -23,9 +23,11 @@ jobs:
       - name: Checkout the Source Code
         uses: actions/checkout@v2
 
-      - name: npm install, build, and test
+      - name: Install Client
+        run: npm ci
+
+      - name: Build Client
         run:
-          npm install
           npm run build
           npm run test --if-present
 
