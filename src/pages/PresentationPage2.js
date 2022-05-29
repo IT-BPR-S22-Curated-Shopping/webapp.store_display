@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Box, CardContent, CardMedia, Fade, Slide, Typography, Zoom} from '@mui/material';
+import {Box, CardMedia, Fade, Slide, Typography, Zoom} from '@mui/material';
 import {useParams} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import {useIntervalC} from '../util/UseIntervalC';

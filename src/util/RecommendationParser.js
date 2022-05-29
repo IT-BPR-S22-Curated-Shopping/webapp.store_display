@@ -1,18 +1,26 @@
 function RecommendationParser() {
 
+    const addCommonTagsToProducts = (recommendations, customerTags) => {
+        recommendations.forEach((recommendation) => {
+            recommendation.product.commonTags = customerTags.filter(x => recommendation.product.tags.some(y => x.tag === y.tag));
+        });
+        return recommendations;
+    }
+
+    const getTopRecommendations = (recommendations, count) => recommendations.sort(function (a,b) { return b.score - a.score }).slice(0, count);
+
     const parseRecommendation = (payload) => {
-        let data = JSON.parse(payload);
+        const data = JSON.parse(payload);
 
-        let top4Recommendations = data.recommendations.sort(function (a,b) { return b.score - a.score }).slice(0,4);
+        let topRecommendations = getTopRecommendations(data.recommendations, 4);
 
-        let highlightedProduct = top4Recommendations.shift();
+        topRecommendations = addCommonTagsToProducts(topRecommendations, data.customer.tags);
 
-        let commonTags = data.customer.tags.filter(x => highlightedProduct.product.tags.some(y => x.tag === y.tag));
+        const highlightedProduct = topRecommendations.shift();
 
         return {
             "product": highlightedProduct,
-            "recommendedProducts": top4Recommendations,
-            "commonTags": commonTags
+            "recommendedProducts": topRecommendations
         }
     }
 
@@ -20,7 +28,7 @@ function RecommendationParser() {
         return JSON.parse(payload.data);
     }
 
-    return {parseRecommendation, parseData}
+    return {parseData, parseRecommendation}
 }
 
 export default RecommendationParser;

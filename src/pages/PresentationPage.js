@@ -1,18 +1,22 @@
 import {useEffect, useState} from "react";
-import {Box, Typography} from "@mui/material";
 import * as React from "react";
 import {useParams} from "react-router-dom";
 import ProductPresentationComponent from "../components/ProductPresentationComponent";
-import Grid from "@mui/material/Grid";
+import SinglePlusArrayRecommendation from "../components/SinglePlusArrayRecommendation";
+
 
 function PresentationPage(props) {
     const params = useParams();
     const WSHandler = props.webSocketHandler;
-    const [orientation, setOrientation] = useState("horizontal")
     const [idle, setIdle] = useState(true);
+
+    const [productReceived, setProductReceived] = useState(false);
     const [product, setProduct] = useState({})
-    const [recommendedProducts, setRecommendedProducts] = useState([])
-    const [commonTags, setCommonTags] = useState([])
+    const [relatedProducts, setRelatedProducts] = useState([]);
+
+    const [recommendation, setRecommendation] = useState({});
+
+
 
     useEffect(() => {
         let locationId = params.locationId;
@@ -23,38 +27,27 @@ function PresentationPage(props) {
     }, [])
 
     const onInitialProduct = (data) => {
+        setProduct(data.currentProduct);
+        setRelatedProducts(data.recommendations);
+        setProductReceived(true);
         console.log("presentation page initial data");
     }
 
-    const onMessageCallback = (data) => {
-        setProduct(data.product)
-        setRecommendedProducts(data.recommendedProducts)
-        setCommonTags(data.commonTags)
+    const onMessageCallback = (payload) => {
+        const recommendation = {
+            product: payload.product.product,
+            recommendedProducts: payload.recommendedProducts.map(recommendation => recommendation.product)
+        }
+        setRecommendation(recommendation)
         setIdle(false)
     }
 
     return idle ? (
-        <Box>
-            <video loop autoPlay style={{
-                objectFit: "cover",
-                height: orientation === "vertical" ? 1920 : 1080,
-                width: orientation === "vertical" ? 1080 : 1920,
-                top: 0,
-                left: 0,
-                position: "fixed",
-                zIndex: -1
-            }}>
-                <source
-                    src={require("../resources/videos/shopping_background_video_horizontal.mp4")}
-                    type="video/mp4"
-                />
-            </video>
-            <Grid container style={{background: 'rgba(109,112,115,0.7)', height: "100vh"}}>
-                <Typography variant={"h2"} color={"whitesmoke"} marginY={"auto"} mx={"auto"}>Experience curated shopping</Typography>
-            </Grid>
-        </Box>
+        productReceived && (
+           <ProductPresentationComponent product={product} relatedProducts={relatedProducts} />
+        )
     ) : (
-        <ProductPresentationComponent orientation={orientation} product={product} recommendedProducts={recommendedProducts} commonTags={commonTags} />
+        <SinglePlusArrayRecommendation recommendation={recommendation}/>
     )}
 
 export default PresentationPage;

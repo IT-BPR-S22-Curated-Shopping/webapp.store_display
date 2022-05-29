@@ -23,13 +23,8 @@ function SingleProductRecommendation (props) {
                 }}>
                     Just 4 U
                 </Typography>
-                <Box margin={5}>
-                    <img
-                        src={props.product.image}
-                        alt={props.product.name}
-                        loading="lazy"
-                    />
-                </Box>
+                <Box width={'40vh'} height={'40vh'} margin={5} bgcolor={'green'} sx={{ backgroundImage: `url(${props.product.image})`, backgroundSize:'contain', backgroundRepeat:'no-repeat'}}/>
+
                 <Typography sx={{
                     typography: 'h5',
                     textTransform: 'capitalize',
