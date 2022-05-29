@@ -23,5 +23,4 @@ function RecommendationParser() {
     return {parseRecommendation, parseData}
 }
 
-
 export default RecommendationParser;
