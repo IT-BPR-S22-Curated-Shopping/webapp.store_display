@@ -15,13 +15,7 @@ function ProductPresentationComponent(props) {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (props.product !== null || props.product !== {} || props.product !== undefined) {
-            setProduct(props.product);
-        }
 
-        if (props.recommendedProducts !== null || props.recommendedProducts !== {} || props.recommendedProducts !== undefined) {
-            setRecommendedProducts(props.recommendedProducts);
-        }
         setLoading(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
