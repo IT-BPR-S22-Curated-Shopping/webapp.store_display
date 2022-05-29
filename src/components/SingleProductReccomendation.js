@@ -1,12 +1,13 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import {Box, ImageList, ImageListItem, Paper, Typography} from "@mui/material";
+import { Paper, Typography} from "@mui/material";
 import {getFont} from "../util/StyleProvider";
+import CardMedia from "@mui/material/CardMedia";
 
 function SingleProductRecommendation (props) {
 
     return (
-        <Grid item display={'flex'} flexDirection={"row"} justifyContent={'center'} alignContent={"space-between"}>
+        <Grid item display={'flex'} flexDirection={"row"} justifyContent={'center'} alignContent={"center"}>
             <Paper elevation={0} sx={{padding: 3}} >
                 <Typography sx={{
                     typography: 'h6',
@@ -23,7 +24,14 @@ function SingleProductRecommendation (props) {
                 }}>
                     Just 4 U
                 </Typography>
-                <Box width={'40vh'} height={'40vh'} margin={5} bgcolor={'green'} sx={{ backgroundImage: `url(${props.product.image})`, backgroundSize:'contain', backgroundRepeat:'no-repeat'}}/>
+                <CardMedia
+                    component="img"
+                    image={props.product.image}
+                    sx={{
+                        height: props.window.height > props.window.width ? props.window.height * 0.4 : 'auto',
+                        width: props.window.height > props.window.width ? 'auto' : props.window.width * 0.2,
+                        padding:2 }}
+                />
 
                 <Typography sx={{
                     typography: 'h5',
@@ -32,7 +40,7 @@ function SingleProductRecommendation (props) {
                     color: 'black',
                     fontStyle: 'normal',
                     fontWeight: 'bold',
-                    fontSize: 60,
+                    fontSize: 45,
                     fontFamily: 'default',
                     letterSpacing: 5,
                     lineHeight: 'normal',

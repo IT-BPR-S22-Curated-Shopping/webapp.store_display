@@ -10,7 +10,7 @@ function ProductArrayComponent (props) {
             {
                 props.products.map(product => {
                     key++;
-                    return <ProductComponent key={key} product={product}/>
+                    return <ProductComponent key={key} product={product} window={props.window}/>
                 })
             }
         </Grid>

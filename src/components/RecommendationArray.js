@@ -13,7 +13,7 @@ function RecommendationArray (props) {
                 style={getStyle()}
                 gridProps={{overflow:'hidden', margin:1, display:'flex'}}
             />
-            <ProductArrayComponent products={props.products} sx={{margin: 1}}/>
+            <ProductArrayComponent products={props.products} window={props.window} sx={{margin: 1}}/>
         </Grid>
     )
 }

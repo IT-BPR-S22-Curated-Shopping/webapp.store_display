@@ -10,10 +10,14 @@ function ProductComponent (props) {
 
     return (
         <Grid item xs={12} md={4}>
-            <Card sx={{ margin: 1}} >
+            <Card sx={{ margin: 1, minHeight: 402}} >
                 <CardMedia
                     component="img"
                     image={props.product.image}
+                    sx={{
+                        height: props.window.height > props.window.width ? props.window.height * 0.2 :  props.window.height * 0.3,
+                        width: props.window.height > props.window.width ? 'auto' : 'auto',
+                        padding:2}}
                 />
                 <CardContent>
                     <Grid container display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
