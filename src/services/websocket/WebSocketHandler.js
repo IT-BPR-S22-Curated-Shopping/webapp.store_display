@@ -11,7 +11,7 @@ function WebSocketHandler() {
     const connect = (id) => {
         if (webSocket == null) {
             console.log('Connecting to location ' + id + '...');
-            webSocket = new WebSocket('ws://localhost:9000/presentation');
+            webSocket = new WebSocket(process.env['REACT_APP_BASE_URL']);
             locationId = id;
 
             webSocket.onopen = onOpen;
