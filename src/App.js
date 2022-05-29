@@ -1,45 +1,22 @@
 import './App.css';
-import * as React from "react";
-import {useEffect} from "react";
+import * as React from 'react';
+import WebSocketHandler from './services/websocket/WebSocketHandler';
+import {Route, Routes} from 'react-router-dom';
+import PresentationPage from './pages/PresentationPage';
+import PresentationPage2 from './pages/PresentationPage2';
+import BasePage from './pages/BasePage'
+
 
 function App() {
-    // const [tick, setTick] = useState(1)
 
-    // useEffect(() => {
-    //     let secondsBetween = (new Date().getTime() - beaconTime.getTime()) / 1000;
-    //
-    //     if (secondsBetween > 5) {
-    //         setBeacon(null)
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[tick])
-
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         setTick(Math.random);
-    //     }, 1000)
-    // }, [])
-
-    useEffect(() => {
-        let webSocket = new WebSocket('wss://curatedbackend.herokuapp.com/presentation');
-        webSocket.onmessage = function (payload) {
-            console.log(payload.data)
-        }
-
-        webSocket.addEventListener('open', function (event) {
-            webSocket.send("Callback from presentation device");
-        });
-
-        setInterval(() => {
-            webSocket.send("Heartbeat")
-        }, 40000);
-
-    }, []);
-
+    const websocketHandler = WebSocketHandler();
     return (
-        <div className="App">
-            {/*<ShowcaseComponent beacon={beacon} orientation={"horizontal"}/>*/}
-        </div>
+        <Routes>
+            <Route path="/" element={<BasePage webSocketHandler={websocketHandler}/>}/>
+            <Route path="/presentation/:locationId/" element={<PresentationPage2 webSocketHandler={websocketHandler}/>}/>
+            <Route path="/presentation/:locationId/layout/1" element={<PresentationPage webSocketHandler={websocketHandler}/>}/>
+            <Route path="/presentation/:locationId/layout/2" element={<PresentationPage2 webSocketHandler={websocketHandler}/>}/>
+        </Routes>
     );
 }
 
