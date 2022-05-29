@@ -8,7 +8,7 @@ import {useIntervalC} from '../util/UseIntervalC';
 function PresentationPage2(props) {
     const params = useParams();
     const WSHandler = props.webSocketHandler;
-    
+
     const [initialRecommendedProducts, setInitialRecommendedProducts] = useState([]);
 
     const [displayedProduct, setDisplayedProduct] = useState({});
