@@ -17,7 +17,6 @@ function PresentationPage(props) {
     const [recommendation, setRecommendation] = useState({});
 
 
-
     useEffect(() => {
         let locationId = params.locationId;
         if (locationId !== undefined) {
@@ -31,16 +30,23 @@ function PresentationPage(props) {
         setProduct(data.currentProduct);
         setRelatedProducts(data.recommendations);
         setProductReceived(true);
+        setIdle(true)
         console.log("presentation page initial data");
     }
 
     const onMessageCallback = (payload) => {
-        const recommendation = {
-            product: payload.product.product,
-            recommendedProducts: payload.recommendedProducts.map(recommendation => recommendation.product)
-        }
-        setRecommendation(recommendation)
-        setIdle(false)
+        setIdle(prevState => {
+            if (prevState) {
+                const recommendation = {
+                    product: payload.product.product,
+                    recommendedProducts: payload.recommendedProducts.map(recommendation => recommendation.product)
+                }
+                setRecommendation(recommendation)
+
+                setTimeout(() => {setIdle(true);}, 40000);
+                return false
+            }
+        })
     }
 
     return idle ? (

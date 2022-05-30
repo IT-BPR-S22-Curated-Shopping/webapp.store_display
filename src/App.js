@@ -12,8 +12,8 @@ function App() {
     const websocketHandler = WebSocketHandler();
     return (
         <Routes>
-            <Route path="/" element={<BasePage webSocketHandler={websocketHandler}/>}/>
-            <Route path="/presentation/:locationId/" element={<PresentationPage2 webSocketHandler={websocketHandler}/>}/>
+            <Route path="/" element={<BasePage />}/>
+            <Route path="/presentation/:locationId" element={<PresentationPage2 webSocketHandler={websocketHandler}/>}/>
             <Route path="/presentation/:locationId/layout/1" element={<PresentationPage webSocketHandler={websocketHandler}/>}/>
             <Route path="/presentation/:locationId/layout/2" element={<PresentationPage2 webSocketHandler={websocketHandler}/>}/>
         </Routes>

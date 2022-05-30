@@ -54,14 +54,28 @@ function PresentationPage2(props) {
     }, 10000);
 
     const onMessageCallback = (data) => {
-        setIsRecommendation(true);
+        setIsRecommendation(prevState => {
+            console.log(prevState)
+            if (prevState === false) {
 
-        let randomColorNum = Math.floor(Math.random() * colors.length);
-        setDisplayedColor(colors[randomColorNum]);
-        setDisplayedProduct(data.product);
-        setDisplayedRecommendation(data.recommendedProducts);
+                let randomColorNum = Math.floor(Math.random() * colors.length);
+                setDisplayedColor(colors[randomColorNum]);
+                setDisplayedProduct(data.product);
+                setDisplayedRecommendation(data.recommendedProducts);
 
-        setTimeout(() => {setIsRecommendation(false);}, 40000);
+                setTimeout(() => {setIsRecommendation(false);}, 40000);
+                return true
+            }
+        })
+
+        // setIsRecommendation(true);
+        //
+        // let randomColorNum = Math.floor(Math.random() * colors.length);
+        // setDisplayedColor(colors[randomColorNum]);
+        // setDisplayedProduct(data.product);
+        // setDisplayedRecommendation(data.recommendedProducts);
+        //
+        // setTimeout(() => {setIsRecommendation(false);}, 40000);
     };
 
     const onInitialProduct = (data) => {
