@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Box, CardMedia, Fade, Slide, Typography, Zoom} from '@mui/material';
 import {useParams} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
-import {useIntervalC} from '../util/UseIntervalC';
+import {useInterval} from '../util/UseInterval';
 
 function PresentationPage2(props) {
     const params = useParams();
@@ -14,10 +14,10 @@ function PresentationPage2(props) {
     const [displayedProduct, setDisplayedProduct] = useState({});
     const [displayedRecommendations, setDisplayedRecommendation] = useState([]);
     const [displayedColor, setDisplayedColor] = useState('#39afd2');
-
     const [isRecommendation, setIsRecommendation] = useState(false);
     const [zoom, setZoom] = useState(true);
     const colors = ['#9d9d9d', '#ff5606', '#4153b8', '#00bbd4', '#39afd2', '#353f45', '#9e32af', '#f0245e'];
+    const timer = useRef(null);
 
     useEffect(() => {
         let locationId = params.locationId;
@@ -28,7 +28,7 @@ function PresentationPage2(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useIntervalC(() => {
+    const interval = useInterval(() => {
         if (isRecommendation) {
             return;
         }
@@ -51,33 +51,35 @@ function PresentationPage2(props) {
         setDisplayedRecommendation(recArray);
 
         setZoom(true);
+
     }, 10000);
 
+    function startTimer() {
+        // Start a timer
+        if (timer.current == null)
+            timer.current = setTimeout(timeoutCallback, 5000);
+    }
+
+    function timeoutCallback() {
+        timer.current = null;
+        setIsRecommendation(false);
+        interval.resume();
+    }
+
+    // recommendation
     const onMessageCallback = (data) => {
-        setIsRecommendation(prevState => {
-            console.log(prevState)
-            if (prevState === false) {
 
-                let randomColorNum = Math.floor(Math.random() * colors.length);
-                setDisplayedColor(colors[randomColorNum]);
-                setDisplayedProduct(data.product);
-                setDisplayedRecommendation(data.recommendedProducts);
+        setIsRecommendation(true);
+        let randomColorNum = Math.floor(Math.random() * colors.length);
+        setDisplayedColor(colors[randomColorNum]);
+        setDisplayedProduct(data.product);
+        setDisplayedRecommendation(data.recommendedProducts);
 
-                setTimeout(() => {setIsRecommendation(false);}, 40000);
-                return true
-            }
-        })
+        interval.pause()
+        startTimer();
 
-        // setIsRecommendation(true);
-        //
-        // let randomColorNum = Math.floor(Math.random() * colors.length);
-        // setDisplayedColor(colors[randomColorNum]);
-        // setDisplayedProduct(data.product);
-        // setDisplayedRecommendation(data.recommendedProducts);
-        //
-        // setTimeout(() => {setIsRecommendation(false);}, 40000);
     };
-
+    // initial product
     const onInitialProduct = (data) => {
         let randomColorNum = Math.floor(Math.random() * colors.length);
         // set products to display
@@ -146,11 +148,13 @@ function PresentationPage2(props) {
                                     <Typography variant={'h7'}>Product score</Typography>
                                     {displayedProduct && (
                                         <Box>
-                                            <Typography variant={'h5'}>{displayedProduct?.score ? Math.floor(displayedProduct?.score * 100) : ""}</Typography>
-                                            <Typography variant={'h3'} mt={3}>{displayedProduct?.product?.name}</Typography>
-                                            <Typography variant={'h7'} mt={3}>{displayedProduct?.product?.caption}</Typography>
+                                            <Typography variant={'h5'}>{displayedProduct?.score ? Math.floor(
+                                                displayedProduct?.score * 100) : ''}</Typography>
+                                            <Typography variant={'h3'}
+                                                        mt={3}>{displayedProduct?.product?.name}</Typography>
+                                            <Typography variant={'h7'}
+                                                        mt={3}>{displayedProduct?.product?.caption}</Typography>
                                         </Box>
-
 
                                     )}
 
@@ -203,26 +207,26 @@ function PresentationPage2(props) {
                                         </Box>
                                     </Fade>
                                 </Grid>
-                                { displayedRecommendations[2]?.product?.image && (
-                                <Grid item pl={1} pr={1}>
-                                    <Fade in={true} style={{transformOrigin: '0 0 0', transitionDelay: '1200ms'}}>
-                                        <Box>
-                                            <CardMedia
-                                                component="img"
-                                                height="200px"
-                                                image={displayedRecommendations[2]?.product?.image}
-                                                alt=""
-                                            />
+                                {displayedRecommendations[2]?.product?.image && (
+                                    <Grid item pl={1} pr={1}>
+                                        <Fade in={true} style={{transformOrigin: '0 0 0', transitionDelay: '1200ms'}}>
                                             <Box>
-                                                <Typography gutterBottom variant="h5" component="div" mt={2}>
-                                                    {displayedRecommendations[2]?.product?.name.toUpperCase()}
-                                                </Typography>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="200px"
+                                                    image={displayedRecommendations[2]?.product?.image}
+                                                    alt=""
+                                                />
+                                                <Box>
+                                                    <Typography gutterBottom variant="h5" component="div" mt={2}>
+                                                        {displayedRecommendations[2]?.product?.name.toUpperCase()}
+                                                    </Typography>
+                                                </Box>
                                             </Box>
-                                        </Box>
-                                    </Fade>
-                                </Grid>
+                                        </Fade>
+                                    </Grid>
                                 )}
-                                { displayedRecommendations[3]?.product?.image && (
+                                {displayedRecommendations[3]?.product?.image && (
                                     <Grid item pl={1} pr={2}>
                                         <Fade in={true} style={{transformOrigin: '0 0 0', transitionDelay: '1400ms'}}>
                                             <Box>

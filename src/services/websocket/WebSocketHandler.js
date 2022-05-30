@@ -23,7 +23,6 @@ function WebSocketHandler() {
     const onMessage = (payload) => {
         if (recommendationParser.parseData(payload).sessionId) {
             console.log('initial product received.');
-            console.log(recommendationParser.parseData(payload));
             onInitialProductCallback(recommendationParser.parseData(payload));
         } else {
             onRecommendationCallback(recommendationParser.parseRecommendation(payload.data));
