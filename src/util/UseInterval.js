@@ -4,7 +4,7 @@ export function useInterval(callback, delay) {
 
     const savedCallback = useRef();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    let id;
+    let id = useRef(null);
 
     // Remember the latest function.
     useEffect(() => {
@@ -17,19 +17,19 @@ export function useInterval(callback, delay) {
         }
 
         if (delay !== null) {
-            id = setInterval(tick, delay);
-            return () => clearInterval(id);
+            id.current = setInterval(tick, delay);
+            return () => clearInterval(id.current);
         }
     }, [delay]);
 
     const pause = () => {
-        clearInterval(id)
+        clearInterval(id.current)
     }
     const resume = () => {
         function tick() {
             savedCallback.current();
         }
-        id = setInterval(tick, delay)
+        id.current = setInterval(tick, delay)
     }
 
     return {pause, resume}

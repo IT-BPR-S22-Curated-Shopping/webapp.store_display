@@ -57,7 +57,7 @@ function PresentationPage2(props) {
     function startTimer() {
         // Start a timer
         if (timer.current == null)
-            timer.current = setTimeout(timeoutCallback, 5000);
+            timer.current = setTimeout(timeoutCallback, 20000);
     }
 
     function timeoutCallback() {
@@ -68,14 +68,14 @@ function PresentationPage2(props) {
 
     // recommendation
     const onMessageCallback = (data) => {
-
+        console.log('received recommendation');
         setIsRecommendation(true);
         let randomColorNum = Math.floor(Math.random() * colors.length);
         setDisplayedColor(colors[randomColorNum]);
         setDisplayedProduct(data.product);
         setDisplayedRecommendation(data.recommendedProducts);
 
-        interval.pause()
+        interval.pause();
         startTimer();
 
     };
