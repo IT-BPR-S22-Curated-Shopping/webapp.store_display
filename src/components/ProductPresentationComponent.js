@@ -13,6 +13,7 @@ function getWindowDimensions() {
 
 function ProductPresentationComponent(props) {
     const [isLoading, setLoading] = useState(true);
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
 
@@ -20,7 +21,6 @@ function ProductPresentationComponent(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
         function handleResize() {
